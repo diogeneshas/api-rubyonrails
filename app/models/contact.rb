@@ -1,7 +1,7 @@
 class Contact < ApplicationRecord
-  belongs_to :kind
+  belongs_to :kind, optional: true
   
-  def author
-    "Diogenes Henrique"
+  def to_br
+    { name: self.name, birthdate: (I18n.l(self.birthdate) unless self.birthdate.blank?) }
   end
 end

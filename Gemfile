@@ -47,4 +47,5 @@ group :development do
 end
 
 gem 'faker'
+gem 'rails-i18n'
 
