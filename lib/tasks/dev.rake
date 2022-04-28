@@ -1,6 +1,8 @@
 namespace :dev do
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
+    %x(rails db:drop db:create db:migrate)
+
     puts "Cadastrando os tipos de contato..."
     
       kinds = %w(Amigo Comercial Conhecido)
@@ -29,6 +31,16 @@ namespace :dev do
         contact.phones << phone
         contact.save!
       end
+    end
+
+    puts "Cadastrando os enderecos"
+
+    Contact.all.each do |contact|
+      Address.create!(
+        street: Faker::Address.street_address,
+        city: Faker::Address.city,
+        contact: contact
+      )
     end
 
   end
