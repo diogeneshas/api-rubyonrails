@@ -10,6 +10,7 @@ namespace :dev do
           description: k
         )
       end
+
     puts "Cadastrando os contatos..."
     100.times do |i|
       Contact.create!(
@@ -18,6 +19,16 @@ namespace :dev do
         birthdate: Faker::Date.between(from: 65.years.ago, to: 18.years.ago),
         kind: Kind.all.sample
       )
+    end
+
+    puts "Cadastrando os telefones..."
+
+    Contact.all.each do |contact|
+      Random.rand(5).times do |i|
+        phone = Phone.create!(number: Faker::PhoneNumber.cell_phone)
+        contact.phones << phone
+        contact.save!
+      end
     end
 
   end
